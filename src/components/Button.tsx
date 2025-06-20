@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'accent';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
-  theme?: 'gradient' | 'organic' | 'flat';
+  theme?: 'gradient' | 'organic' | 'flat' | 'kanagawa';
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -38,6 +38,10 @@ export const Button: React.FC<ButtonProps> = ({
       bg-stone-200 text-stone-700
       border-stone-400/40 hover:bg-stone-300
       shadow-sm hover:shadow-md
+    ` : theme === 'kanagawa' ? `
+      bg-white/30 text-stone-800
+      border-white/50 hover:bg-white/50
+      backdrop-blur-sm shadow-md hover:shadow-lg font-bold
     ` : `
       bg-gradient-to-br from-stone-200/80 to-stone-300/80 text-stone-700
       border-stone-400/40 hover:from-stone-300/90 hover:to-stone-400/90

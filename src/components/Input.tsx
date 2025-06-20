@@ -49,7 +49,7 @@ export const Input: React.FC<InputProps> = ({
               absolute left-6 transition-all duration-300 ease-out pointer-events-none
               text-stone-500 tracking-widest
               `,
-              isFocused || hasValue || props.value
+              isFocused || hasValue || props.value || props.placeholder
                 ? 'top-2 text-xs font-medium'
                 : 'top-4 text-base'
             )}

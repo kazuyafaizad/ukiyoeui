@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { Palette, Sparkles, Heart, Menu as MenuIcon, Sun, Cloud, Layers } from 'lucide-react';
+import { Palette, Sparkles, Heart, Menu as MenuIcon, Sun, Cloud, Layers, Image as ImageIcon } from 'lucide-react';
 import { Button } from './components/Button';
 import { Input } from './components/Input';
 import { Card } from './components/Card';
 import { Modal } from './components/Modal';
 import { Menu } from './components/Menu';
 import { OrganicBackground } from './components/OrganicBackground';
+import kanagawaBg from '/kanagawa.jpg';
 
-type Theme = 'gradient' | 'organic' | 'flat';
+type Theme = 'gradient' | 'organic' | 'flat' | 'kanagawa';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [selectedOption, setSelectedOption] = useState('');
-  const [theme, setTheme] = useState<Theme>('gradient');
+  const [theme, setTheme] = useState<Theme>('kanagawa');
 
   const menuOptions = [
     { label: 'Traditional Arts', value: 'traditional' },
@@ -28,6 +29,8 @@ function App() {
         return 'bg-gradient-to-t from-orange-300 from- via-blue-100 via- to-blue-100 to-';
       case 'flat':
         return 'bg-white';
+      case 'kanagawa':
+        return ''; // The background image will handle it
       default:
         return 'bg-gradient-to-t from-orange-300 from- via-blue-100 via- to-blue-100 to-';
     }
@@ -45,6 +48,14 @@ function App() {
   return (
     <div className={`min-h-screen relative overflow-hidden ${getThemeStyles()}`}>
       {theme === 'organic' && <OrganicBackground />}
+      {theme === 'kanagawa' && (
+        <div
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{ backgroundImage: `url(${kanagawaBg})` }}
+        >
+          <div className="absolute inset-0 bg-white/30 backdrop-blur-sm"></div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="relative z-10">
@@ -88,6 +99,16 @@ function App() {
                 >
                   <Layers size={16} className="mr-2" />
                   Flat
+                </Button>
+                <Button
+                  variant={theme === 'kanagawa' ? 'primary' : 'secondary'}
+                  size="sm"
+                  onClick={() => setTheme('kanagawa')}
+                  className="flex items-center"
+                  theme={theme}
+                >
+                  <ImageIcon size={16} className="mr-2" />
+                  Kanagawa
                 </Button>
               </div>
               <Button variant="secondary" size="sm" theme={theme}>
@@ -144,7 +165,7 @@ function App() {
           {/* Components Showcase */}
           <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Form Card */}
-            <Card hover className={`col-span-full lg:col-span-2 ${getCardStyles()}`}>
+            <Card hover className={`col-span-full lg:col-span-2 ${getCardStyles()} relative z-20`}>
               <h3 className="text-2xl font-light text-stone-800 mb-6 tracking-[0.02em]">
                 Form Elements
               </h3>
@@ -189,7 +210,7 @@ function App() {
 
           {/* Button Variations */}
           <section>
-            <Card className={getCardStyles()}>
+            <Card className={`${getCardStyles()} relative z-10`}>
               <h3 className="text-2xl font-light text-stone-800 mb-6 tracking-[0.02em]">
                 Button Variations
               </h3>
